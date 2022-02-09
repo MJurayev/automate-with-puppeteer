@@ -1,0 +1,95 @@
+{
+    "document_type": 2,
+    "document_number": "",
+    "passport": "AB9263498",
+    "pin": "33004932700043",
+    "gender": true,
+    "first_name": "Po'lat",
+    "last_name": "Raxmatov",
+    "patronimic": "Temir o'g'li",
+    "birth_date": "1993-04-30",
+    "phone": "97 709 95 15",
+    "additional_phone": "",
+    "region_id": "",
+    "city_id": "",
+    "makhalla_id": "",
+    "address": "Navro'z",
+    "employment_data": {
+        "holati": 9,
+        "migrasiyaga": {
+            "turi": "",
+            "respublika": "",
+            "viloyat": "",
+            "ish_joyi": "",
+            "lavozimi": "",
+            "ketgan_muddati": "",
+            "talim_muassasasi": "",
+            "bosqichi": "",
+            "ish_yoki_oqish_joyi": "",
+            "lavozimi_yoki_bosqichi": ""
+        },
+        "talimda": {
+            "davlat_muassasa": "",
+            "turi": ""
+        },
+        "boshqa_rasmiy_tarmoqda": "",
+        "ishlash_istagi_yoq": "",
+        "tashkilot_nomi": "",
+        "lavozimi": "",
+        "muassasa_nomi": "",
+        "bosqichi_sinfi": "",
+        "fakulteti": "",
+        "yonalishi": "",
+        "qoshimcha_izoh": ""
+    },
+    "educational_data": {
+        "holati": 2,
+        "maktabgacha_talim": "",
+        "umumiy_orta": {
+            "tugallangan": "",
+            "turi": ""
+        },
+        "professional_talim": {
+            "tugallangan": "",
+            "turi": ""
+        },
+        "oliy_talim": {
+            "tugallangan": "",
+            "turi": ""
+        },
+        "oliy_talimdan_keyingi_talim": "",
+        "muassasa_nomi": "",
+        "mutaxassisligi": "",
+        "tamomlagan_vaqti": ""
+    },
+    "family_data": {
+        "holati": ""
+    },
+    "social_data": {
+        "ijtimoiy_himoyaga_muhtojlar": {
+            "holati": [],
+            "yetim": ""
+        },
+        "alohida_nazoratda_turuvchilar": [],
+        "nogironligi_bor": {
+            "guruhi": "",
+            "turi": ""
+        },
+        "ijtimoiy_komak_boyicha": [],
+        "ijtimoiy_faol_yosh": [],
+        "iqtidori_boyicha": [],
+        "erishgan_yutuqlari_boyicha": {
+            "daraga": "",
+            "turi": []
+        }
+    },
+    "healty_data": {
+        "salomatligi": 1,
+        "surunkali_kasallikk_turi": ""
+    },
+    "youthnotebook_data": {
+        "tavsiya_etiladi": 0,
+        "sababi": ""
+    },
+    "additional_info": ""
+}

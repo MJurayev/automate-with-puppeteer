@@ -2,6 +2,8 @@ const reader = require('xlsx')
 const fs = require('fs')
 const CyrillicToTranslit = require('cyrillic-to-translit-js')
 const { translitObject } = require('./translit/translitObject')
+const { normalizeDate } = require('./utils/normalize-data')
+const { randomPhone } = require('./utils/getRandomPhone')
 
 const file = reader.readFile('./test_data.xlsx')
 
@@ -28,39 +30,53 @@ const parseFile = fs.createWriteStream('./parse-data.json')
 //     'Яшаш жойи бўйича',
 //     'Бошқа ижтимоий ҳолати'
 // ]
-const genderIsTrue = ["O'g'li","O‘G‘LI"]
+const genderIsTrue = ["erkak", "o'g'il", "o`g`il", "o`g`li", "o'g'li","o'g‘il","o‘g'il"]
+var count = 0
 for (let i = 0; i < sheets.length; i++) {
     const temp = reader.utils.sheet_to_json(
         file.Sheets[file.SheetNames[i]])
+    
     temp.forEach((res) => {
-        res = validateInfo(res)
-        res = translitObject(res)
-        res.gender = genderIsTrue.includes(res.patronimic.split(' ')[1])
-        console.log(res.gender)
-        data.push(res)
+        if(count > 218){
+            return
+        }
+        if(!isNaN(Number(res['T/R']))){
+            if(Date.now()%30 !== 1){
+                console.log(count++)
+            res = validateInfo(res)
+            console.log(res)
+            // res = translitObject(res)
+            // console.log(res.gender)
+            data.push(res)
+            };
+            
+        }
+        
     })
+
+    // console.log(temp)
 }
 parseFile.write(JSON.stringify(data))
 function validateInfo(res) {
 
-    const educationalData = {
-        'ўрта': 2,
-        'олий': 4,
-        'ўрта-махсус': 3
-    }
-    let nameArray = translit.transform(res['Ф.И.Ш']).split(' ')
+    if(!res )return
+    let nameArray = translit.transform(res["O'quvchining familiyasi,ismo va sharifi"]).split(' ').filter(element => element)
+    let gender = genderIsTrue.includes(res["Jinsi"].toLowerCase())
+    console.log(res["Tug'ilgan kuni,oyi,yili"])
     return {
-        document_type: 2,
-        passport: res['Паспорт'],
-        pin: res['ЖШШИР'].toString(),
+        document_type: 1,
+        passport:"",
+        pin: "",
+        gender:gender ,
         first_name: nameArray[1],
         last_name: nameArray[0],
-        patronimic: `${nameArray[2]} ${nameArray[3]}`,
-        birth_date: res['Туғилган санаси'],
-        phone: res['Телефон рақами'],
-        address: res['Маҳалла номи'],
+        patronimic: `${nameArray[2] || res["Otasi yoki onasining familiyasi,ismi va sharifi"].split(' ')[1]}  ${gender ? "o'g'li" : 'qizi'}`,
+        birth_date: normalizeDate(res["Tug'ilgan kuni,oyi,yili"]),
+        phone: `91 ${randomPhone()}`,
+        address:  "Navro'z mfy Navro'z qishlog'i",
+        document_number:`I-QD ${randomPhone().replace(' ', '')}`,
         employment_data: {
-            holati: 9,
+            holati: 6,
             migrasiyaga: {
                 turi: "",
                 respublika: "",
@@ -88,11 +104,11 @@ function validateInfo(res) {
             qoshimcha_izoh: ""
         },
         educational_data: {
-            holati: isNaN(Number(educationalData[res['Таълим маълумоти']])) ? 2 :Number(educationalData[res['Таълим маълумоти']]),
+            holati: 2,
             maktabgacha_talim: "",
             umumiy_orta: {
-                tugallangan: "",
-                turi: ""
+                tugallangan: 0,
+                turi: 1
             },
             professional_talim: {
                 tugallangan: "",
@@ -103,7 +119,7 @@ function validateInfo(res) {
                 turi: ""
             },
             oliy_talimdan_keyingi_talim: "",
-            muassasa_nomi: "",
+            muassasa_nomi: `${46 + Date.now()%2 } -maktab`,
             mutaxassisligi: "",
             tamomlagan_vaqti: ""
         },
